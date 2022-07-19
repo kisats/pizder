@@ -19,16 +19,6 @@ rootProject.allprojects {
     }
 }
 
-sourceSets {
-  main {
-    java.srcDirs = 'src/main/java'
-  }
-}
-
-tasks.register('compile', JavaCompile) {
-    source = 'src/main/java'
-}
-
 apply plugin: 'com.android.library'
 
 android {
