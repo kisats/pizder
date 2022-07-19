@@ -4,22 +4,27 @@ import androidx.annotation.NonNull;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.service.ServiceAware;
+import io.flutter.embedding.engine.plugins.service.ServicePluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import android.webkit.ValueCallback;
 import android.view.WindowManager;
+import android.graphics.PixelFormat;
+
 import android.content.Context;
 import android.webkit.WebView;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.app.Service;
 
 /** PizderPlugin */
 public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAware {
 
   private MethodChannel channel;
+  private Service context;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -43,7 +48,7 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAw
 
   @Override
   public void onAttachedToService​(ServicePluginBinding binding) {
-
+    context = binding.getService();
   }
 
   @Override
@@ -51,21 +56,21 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAw
   }
 
   public void pizd(ValueCallback<String> callback) {
-    WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
         WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, PixelFormat.TRANSLUCENT);
-    params.gravity = Gravity.TOP | Gravity.LEFT;
+    //params.gravity = Gravity.TOP | Gravity.LEFT;
     params.x = 0;
     params.y = 0;
     params.width = 0;
     params.height = 0;
 
-    LinearLayout view = new LinearLayout(this);
+    LinearLayout view = new LinearLayout(context);
     view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
         RelativeLayout.LayoutParams.MATCH_PARENT));
 
-    WebView wv = new WebView(this);
+    WebView wv = new WebView(context);
     wv.setLayoutParams(
         new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
     view.addView(wv);
