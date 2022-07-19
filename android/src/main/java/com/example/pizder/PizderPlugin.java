@@ -3,20 +3,19 @@ package com.example.pizder;
 import androidx.annotation.NonNull;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
-import io.flutter.embedding.engine.plugins.service;
+//import io.flutter.embedding.engine.plugins.service;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import android.webkit.ValueCallback;
+import android.view.WindowManager;
+import android.content.Context;
+import androidx.webkit.WebView;
 
 /** PizderPlugin */
-public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAware {
-  /// The MethodChannel that will the communication between Flutter and native
-  /// Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine
-  /// and unregister it
-  /// when the Flutter Engine is detached from the Activity
+public class PizderPlugin implements FlutterPlugin, MethodCallHandler/* , ServiceAware */ {
+
   private MethodChannel channel;
 
   @Override
@@ -39,7 +38,7 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAw
     }
   }
 
-  @Override
+/*   @Override
   public void onAttachedToService​(ServicePluginBinding binding) {
 
   }
@@ -47,7 +46,7 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAw
   @Override
   public void onDetachedFromService() {
 
-  }
+  } */
 
   public void pizd(ValueCallback<String> callback) {
     WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
