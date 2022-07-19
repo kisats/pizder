@@ -11,7 +11,10 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import android.webkit.ValueCallback;
 import android.view.WindowManager;
 import android.content.Context;
-import androidx.webkit.WebView;
+import android.webkit.WebView;
+import android.webkit.WebView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /** PizderPlugin */
 public class PizderPlugin implements FlutterPlugin, MethodCallHandler/* , ServiceAware */ {
@@ -49,7 +52,7 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler/* , Servic
   } */
 
   public void pizd(ValueCallback<String> callback) {
-    WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+    WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
     params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
         WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, PixelFormat.TRANSLUCENT);
@@ -71,8 +74,8 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler/* , Servic
 
     windowManager.addView(view, params);
 
-    String source = (String) call.argument("Array.from(document.querySelectorAll('img[rel=nofollow]')).map(a => a.src)");
-    webView.evaluateJavascript(source, null, callback);
+    String source = "Array.from(document.querySelectorAll('img[rel=nofollow]')).map(a => a.src)";
+    wv.evaluateJavascript(source, null, callback);
   }
 
   @Override
