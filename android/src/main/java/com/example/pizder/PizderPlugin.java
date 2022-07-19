@@ -27,7 +27,7 @@ public class PizderPlugin implements FlutterPlugin, MethodCallHandler, ServiceAw
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("getPlatformVersion")) {
+    if (call.method.equals("pizd")) {
       pizd(new ValueCallback<String>() {
         @Override
         public void onReceiveValue(String value) {
